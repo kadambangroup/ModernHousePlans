@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Plans – Modern House Plans</title>
+  <meta name="description" content="Browse all modern house plans. Filter by bedrooms, facing, area and price. Buy via WhatsApp." />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+  <!-- NAV (same as other pages) -->
+  <nav class="navbar navbar-expand-lg sticky-top py-2 shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html"><span class="brand-gradient">ModernHousePlans</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="plans.html">Plans</a></li>
+          <li class="nav-item"><a class="nav-link" href="gallery.html">2D Floor Plan Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item">
+           <button class="btn btn-outline-dark position-relative" data-bs-toggle="offcanvas" data-bs-target="#cartSidebar">
+           <i class="bi bi-bag"></i>
+           <span id="cartCount" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+           </button>
+           </li>
+        </ul>
+        <a href="plans.html" class="btn btn-brand ms-lg-3">Browse Plans</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN: Filters + List (left sidebar remains) -->
+  <main class="container py-5">
+    <div class="row g-4">
+      <!-- LEFT: filters (kept as sidebar) -->
+      <aside class="col-lg-4">
+        <!-- Filters box -->
+        <div class="p-3 bg-white rounded-4 shadow-sm">
+          <h5 class="mb-3">Filters</h5>
+
+          <div class="mb-3">
+            <label class="form-label small">Bedrooms</label>
+            <select id="filterBedrooms" class="form-select">
+              <option value="">Any</option>
+              <option>1BHK</option>
+              <option>2BHK</option>
+              <option>3BHK</option>
+              <option>4BHK</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">Facing</label>
+            <select id="filterFacing" class="form-select">
+              <option value="">Any</option>
+              <option>North</option>
+              <option>East</option>
+              <option>South</option>
+              <option>West</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">No. of Floors</label>
+            <select id="filterFloors" class="form-select">
+              <option value="">Any</option>
+              <option>Ground Floor</option>
+              <option>First Floor</option>
+              <option>Second Floor</option>
+              <option>Third Floor</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">Type of Building</label>
+            <select id="filterType" class="form-select">
+              <option value="">Any</option>
+              <option>Duplex</option>
+              <option>Residential</option>
+              <option>Commercial</option>
+              <option>Apartment</option>
+              <option>Bungalow</option>
+              <option>Villa</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">Min Area (sqft)</label>
+            <input id="filterArea" type="number" class="form-control" placeholder="e.g., 1000">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label small">Max Price (₹)</label>
+            <input id="filterPrice" type="number" class="form-control" placeholder="e.g., 5000000">
+          </div>
+
+          <div class="d-grid">
+            <button id="applyFiltersMain" class="btn btn-brand">Apply Filters</button>
+          </div>
+        </div>
+
+        <!-- Custom Plan Request box (same size & design, below filters) -->
+        <div class="mt-4 p-3 bg-white rounded-4 shadow-sm" id="customPlanBox">
+          <h6 class="mb-3">Request a Custom Plan</h6>
+          <form id="customPlanForm" enctype="multipart/form-data">
+            <div class="row g-2">
+              <div class="col-12">
+                <label class="form-label small">Area of Plot (sqft)</label>
+                <input id="cp_plotArea" class="form-control" placeholder="e.g., 1200" required>
+              </div>
+
+              <div class="col-12">
+                <label class="form-label small">Facing</label>
+                <select id="cp_facing" class="form-select">
+                  <option value="">Select facing</option>
+                  <option>North</option><option>East</option><option>South</option><option>West</option>
+                </select>
+              </div>
+
+              <div class="col-6">
+                <label class="form-label small">North Side (ft)</label>
+                <input id="cp_north" class="form-control" placeholder="e.g., 50">
+              </div>
+              <div class="col-6">
+                <label class="form-label small">West Side (ft)</label>
+                <input id="cp_west" class="form-control" placeholder="e.g., 50">
+              </div>
+              <div class="col-6">
+                <label class="form-label small">South Side (ft)</label>
+                <input id="cp_south" class="form-control" placeholder="e.g., 50">
+              </div>
+              <div class="col-6">
+                <label class="form-label small">East Side (ft)</label>
+                <input id="cp_east" class="form-control" placeholder="e.g., 50">
+              </div>
+
+              <div class="col-12">
+                <label class="form-label small">Type of Building</label>
+                <select id="cp_buildingType" class="form-select">
+                  <option value="">Select type</option>
+                  <option>Duplex</option><option>Residential</option><option>Commercial</option>
+                  <option>Apartment</option><option>Bungalow</option><option>Villa</option>
+                </select>
+              </div>
+
+              <!-- <div class="col-12">
+                <label class="form-label small">Upload Image (optional)</label>
+                <input id="cp_image" type="file" accept="image/*" class="form-control" />
+              </div> -->
+              <div class="mb-3">
+               <label class="form-label">Upload Files (optional)</label>
+               <input type="file" id="cp_files" class="form-control" multiple accept="image/*,.pdf,.doc,.docx,.dwg,.skp,.zip">
+               </div>
+
+
+              <div class="col-12">
+                <label class="form-label small">Description (max 5000 chars)</label>
+                <textarea id="cp_description" class="form-control" rows="4" maxlength="5000" placeholder="Describe what you need..."></textarea>
+              </div>
+
+              <div class="col-6">
+                <label class="form-label small">Mobile Number</label>
+                <input id="cp_mobile" class="form-control" placeholder="10 digit mobile" required>
+              </div>
+              <div class="col-6">
+                <label class="form-label small">Name</label>
+                <input id="cp_name" class="form-control" placeholder="Your name" required>
+              </div>
+
+              <div class="col-12">
+                <label class="form-label small">State & City</label>
+                <input id="cp_statecity" class="form-control" placeholder="State, City (e.g., Tamil Nadu, Chennai)">
+              </div>
+
+              <div class="col-12 d-flex gap-2 mt-2">
+                <!-- WhatsApp button uses global WHATSAPP_NUMBER from js/script.js -->
+                <button id="cpSendWhats" type="button" class="btn btn-success flex-fill"><i class="bi bi-whatsapp me-2"></i>Send on WhatsApp</button>
+                <!-- Email: kadambangroup@gmail.com -->
+                <button id="cpSendEmail" type="button" class="btn btn-outline-dark flex-fill"><i class="bi bi-envelope me-2"></i>Send via Email</button>
+              </div>
+
+              <div class="col-12 mt-2 small muted">
+                Contact will be sent to our WhatsApp number and email: <a href="mailto:kadambangroup@gmail.com">kadambangroup@gmail.com</a>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- optional small quick links you had before -->
+        <div class="mt-4 p-3 bg-white rounded-4 shadow-sm d-none d-lg-block">
+          <h6 class="mb-2">Quick Links</h6>
+          <ul class="list-unstyled small muted mb-0">
+            <li><a href="#plans">Featured Plans</a></li>
+            <li><a href="gallery.html">2D Floor Plan Gallery</a></li>
+            <li><a href="contact.html">Custom Plans & Enquiry</a></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- RIGHT: search + grid (kept as before) -->
+      <section class="col-lg-8">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div class="w-75 me-2">
+            <div class="input-group">
+              <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+              <input id="searchInput" class="form-control border-start-0" placeholder="Search by plan name, city, tag..." />
+            </div>
+          </div>
+
+          <div class="text-end small muted">
+            Showing <span id="countShown">0</span> of <span id="countTotal">0</span> plans
+          </div>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2 mb-3">
+          <span class="chip active" data-chip="all">All</span>
+          <span class="chip" data-chip="1BHK">1BHK</span>
+          <span class="chip" data-chip="2BHK">2BHK</span>
+          <span class="chip" data-chip="3BHK">3BHK</span>
+          <span class="chip" data-chip="4BHK">4BHK</span>
+          <span class="chip" data-chip="Duplex">Duplex</span>
+          <span class="chip" data-chip="Villa">Villa</span>
+        </div>
+
+        <div id="plansGrid" class="row g-4">
+          <!-- JS will inject the plan cards here (20+ demo cards, pagination) -->
+        </div>
+
+        <!-- Pagination (script will render page numbers here) -->
+        <nav aria-label="Plans pagination" class="mt-4">
+          <ul id="pagination" class="pagination justify-content-center">
+            <!-- JS will fill pages here -->
+          </ul>
+        </nav>
+      </section>
+    </div>
+  </main>
+
+  <!-- PLAN MODAL (reuse) -->
+  <div class="modal fade" id="planModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="modalTitle" class="modal-title"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <img id="modalImg" class="w-100 rounded-3" alt="plan" />
+            </div>
+            <div class="col-md-6">
+              <div class="mb-2"><span id="modalBadge" class="badge badge-soft"></span></div>
+              <div class="muted small">Code: <span id="modalCode"></span></div>
+              <div class="muted small">Bedrooms: <span id="modalBhk"></span></div>
+              <div class="muted small">Facing: <span id="modalFacing"></span></div>
+              <div class="muted small">Built-up Area: <span id="modalArea"></span> sqft</div>
+              <hr/>
+              <p id="modalDesc" class="mb-2"></p>
+              <div class="h4"><span id="modalPrice"></span></div>
+              <div class="d-flex gap-2 mt-3">
+                <button id="modalAddBtn" class="btn btn-brand"><i class="bi bi-bag-plus me-2"></i>Add to Cart</button>
+                <button id="modalWhatsBtn" class="btn btn-success"><i class="bi bi-whatsapp me-2"></i>Buy via WhatsApp</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- image preview modal -->
+  <div class="modal fade" id="imgModal" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-body p-0"><img id="imgModalImg" class="w-100" alt=""></div></div></div></div>
+
+  <!-- FOOTER -->
+  <footer class="py-4 bg-white">
+    <div class="container d-flex flex-column flex-lg-row align-items-center justify-content-between gap-3">
+      <div class="small muted">© <span id="year"></span> ModernHousePlans.in</div>
+      <div class="d-flex gap-3 small">
+        <a href="#" class="text-decoration-none muted">Terms</a>
+        <a href="#" class="text-decoration-none muted">Privacy</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp & Cart bubble -->
+  <div class="floating-whatsapp">
+    <button class="btn btn-success" title="Cart" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas"><i class="bi bi-bag"></i></button>
+    <a id="waBubble" target="_blank" class="btn btn-success" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+  </div>
+<!-- cart button -->
+  <div class="offcanvas offcanvas-end offcanvas-cart" tabindex="-1" id="cartSidebar">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">My Cart</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body">
+    <ul class="list-group mb-3" id="cartList"></ul>
+    <div class="d-flex justify-content-between fw-bold mb-3">
+      <span>Total:</span> <span id="cartTotal">₹0</span>
+    </div>
+    <button class="btn btn-success w-100" id="checkoutBtn"><i class="bi bi-whatsapp me-1"></i> Checkout via WhatsApp</button>
+  </div>
+</div>
+
+
+  <!-- JS: Bootstrap + main script -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/script.js"></script>
+
+  <!-- Inline page script to show ALL plans and bind local filter/search for this page -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render all plans on this page (will use pagination in script.js)
+      if (typeof renderPlans === 'function') {
+        // false = show full set (script will handle pagination)
+        renderPlans(false, '#plansGrid');
+      }
+      // ensure cart is rendered
+      if (typeof renderCart === 'function') renderCart();
+      // search input on this page should re-render full list
+      const search = document.getElementById('searchInput');
+      if (search) search.addEventListener('input', ()=> { renderPlans(false, '#plansGrid'); });
+
+      // Apply filters button (left)
+      const applyBtn = document.getElementById('applyFiltersMain');
+      if (applyBtn) applyBtn.addEventListener('click', ()=> { renderPlans(false, '#plansGrid'); });
+
+      // chips behavior (category chips)
+      const chips = document.querySelectorAll('.chip');
+      chips.forEach(c => c.addEventListener('click', ()=> {
+        chips.forEach(x => x.classList.remove('active'));
+        c.classList.add('active');
+        renderPlans(false, '#plansGrid');
+      }));
+
+      // Custom Plan form buttons will be handled in js/script.js
+      // cpSendWhats -> send custom plan via WhatsApp
+      // cpSendEmail -> send custom plan via mailto (kadambangroup@gmail.com)
+    });
+  </script>
+</body>
+</html>
+
+<!-- What I did in this page
+
+Full listing layout: left filters, right results + search + chips.
+
+Uses same component IDs (filterBedrooms, filterFacing, filterArea, filterPrice, searchInput, plansGrid) so it plugs into the existing js/script.js you already have.
+
+Inline script forces renderPlans(false, '#plansGrid') to show all plans on this page.
+
+Cart, modal, gallery preview modal and floating WhatsApp button are included (same as index). -->
